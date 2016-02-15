@@ -16,7 +16,7 @@ platformio run --target upload # upload
 Testing
 ---------
 
-Testing support in Platformio is currently quite limited. I managed to hack together a way to use one C file for tests. Luckily this is enough for this small sketch.
+Testing support in [platformio](http://platformio.org) is currently quite limited. I managed to hack together a way to use one C file for tests. Luckily this is enough for this small sketch.
 
 ```shell
 ./run_local_unit_tests.sh
@@ -25,6 +25,6 @@ Testing support in Platformio is currently quite limited. I managed to hack toge
 Layout
 =========
 
-TODO
+![Breadboard](layout/fritzing_layout_bb.png)
 
-
+![Schematic view](layout/fritzing_layout_schem.png)
