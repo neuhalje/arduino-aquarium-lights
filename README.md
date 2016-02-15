@@ -18,6 +18,10 @@ Testing
 
 Testing support in Platformio is currently quite limited. I managed to hack together a way to use one C file for tests. Luckily this is enough for this small sketch.
 
+```shell
+./run_local_unit_tests.sh
+```
+
 Layout
 =========
 
