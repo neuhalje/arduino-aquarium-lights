@@ -99,6 +99,25 @@ void test_color_step__twoSteps__isCorrect(void) {
     TEST_ASSERT_EQUAL_MESSAGE(100, color_step(10, 210, 2), "Going from 200 to 210 in two steps has a delta of 100");
 }
 
+void test_color_step_0_to_ff__maximum_steps__isCorrect(void) {
+    TEST_ASSERT_EQUAL_HEX8_MESSAGE(0x01, color_step(0, 0xff, 0xff),
+                                   "Going from 0 to 0xff in 0xff steps has a delta of 0x01");
+}
+
+void test_colorShift_step_0_to_ff__maximum_steps__isCorrect(void) {
+    ColorShift sut(Color::OFF, Color::WHITE, 0xff);
+
+    TEST_ASSERT_EQUAL_HEX32_MESSAGE(Color::OFF.color(), sut.next().color(), "First color is start");
+    TEST_ASSERT_EQUAL_HEX32_MESSAGE(0x01010101, sut.next().color(), "Second color is step 1");
+}
+
+void test_colorShift_step_0_to_ff__full_White_maximum_steps__isCorrect(void) {
+    ColorShift sut(Color(0, 0, 0, 0xff), Color(0xff, 0xff, 0xff, 0xff), 0xff);
+
+    TEST_ASSERT_EQUAL_HEX32_MESSAGE(0xff000000, sut.next().color(), "First color is start");
+    TEST_ASSERT_EQUAL_HEX32_MESSAGE(0xff010101, sut.next().color(), "Second color is step 1");
+}
+
 
 int main(int argc, const char *argv[]) {
     /** example
@@ -128,6 +147,9 @@ int main(int argc, const char *argv[]) {
     RUN_TEST(test_color_step__same_to_same__isCorrect);
     RUN_TEST(test_color_step__oneStep__isCorrect);
     RUN_TEST(test_color_step__twoSteps__isCorrect);
+    RUN_TEST(test_color_step_0_to_ff__maximum_steps__isCorrect);
+    RUN_TEST(test_colorShift_step_0_to_ff__maximum_steps__isCorrect);
+    RUN_TEST(test_colorShift_step_0_to_ff__full_White_maximum_steps__isCorrect);
 
     return (UnityEnd());
 }

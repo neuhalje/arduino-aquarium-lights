@@ -1,5 +1,7 @@
-#include <stdio.h>
 #include "ColorShift.h"
+
+
+#define FIX_POINT_BITS 7
 
 /**
  * To fade from color 'current' to 'to' in 'steps': How big do these steps need to be?
@@ -17,18 +19,20 @@ int16_t color_step(uint16_t current, uint16_t to, uint8_t steps) {
     }
 }
 
-ColorShift::ColorShift(Color from, Color to, uint8_t steps) : _current(from),  _to(to), _steps_left(steps) {
+ColorShift::ColorShift(Color from, Color to, uint8_t steps) : _current(from), _to(to), _steps_left(steps) {
     hasNextBeenCalled = false;
 
-    r = from.r << 8;
-    g = from.g << 8;
-    b = from.b << 8;
-    w = from.w << 8;
+    r = from.r << FIX_POINT_BITS;
+    g = from.g << FIX_POINT_BITS;
+    b = from.b << FIX_POINT_BITS;
+    w = from.w << FIX_POINT_BITS;
 
-    deltaR = color_step(r, to.r << 8, steps);
-    deltaG = color_step(g, to.g << 8, steps);
-    deltaB = color_step(b, to.b << 8, steps);
-    deltaW = color_step(w, to.w << 8, steps);
+    deltaR = color_step(r, to.r << FIX_POINT_BITS, steps);
+    deltaG = color_step(g, to.g << FIX_POINT_BITS, steps);
+    deltaB = color_step(b, to.b << FIX_POINT_BITS, steps);
+    deltaW = color_step(w, to.w << FIX_POINT_BITS, steps);
+
+    // printf("deltaR := %i  (from: %i (%x) -> %i (%x) in %i steps\n", deltaR, r, r, to.r << FIX_POINT_BITS, to.r << FIX_POINT_BITS, steps);
 };
 
 bool ColorShift::done() {
@@ -49,10 +53,10 @@ const Color &ColorShift::next() {
         b += deltaB;
         w += deltaW;
 
-        _current.r = r >> 8;
-        _current.g = g >> 8;
-        _current.b = b >> 8;
-        _current.w = w >> 8;
+        _current.r = r >> FIX_POINT_BITS;
+        _current.g = g >> FIX_POINT_BITS;
+        _current.b = b >> FIX_POINT_BITS;
+        _current.w = w >> FIX_POINT_BITS;
 
         return _current;
     }
