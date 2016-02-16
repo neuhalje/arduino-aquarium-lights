@@ -1,6 +1,7 @@
-#include <HardwareSerial.h>
 #include "Debug.h"
 
+#ifdef __AVR__
+#include <HardwareSerial.h>
 
 void debug(const char *fmt, ...) {
     char buf[128]; // resulting string limited to 128 chars
@@ -31,3 +32,4 @@ void debug(const __FlashStringHelper *fmt, ...) {
     va_end(args);
     Serial.print(buf);
 }
+#endif
