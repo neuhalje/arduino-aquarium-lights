@@ -43,28 +43,20 @@ void setup() {
     // switch on at 6 (use an external timer for that)
     fade(Color::OFF, sunset, minutes_to_ms(45));
 
-    // start 6:45
     fade(sunset, morning, minutes_to_ms(30));
 
-    // start 7:15
     fade(morning, noon, minutes_to_ms(45 + 4 * 60));
 
-    // start 12:00
     fade(noon, noon, minutes_to_ms(4 * 60));
 
-    // start 16:00
     fade(noon, afternoon, minutes_to_ms(2 * 60));
 
-    // start 18:00
     fade(afternoon, sunset, minutes_to_ms(45));
 
-    // start 18:45
-    fade(sunset, night, minutes_to_ms(2 * 60));
+    fade(sunset, night, minutes_to_ms( 30));
 
-    // start: 20:45
-    fade(night, Color::OFF, minutes_to_ms(60));
+    fade(night, Color::OFF, minutes_to_ms(30));
 
-    // 21:45 OFF
 }
 
 void loop() {
